@@ -67,4 +67,4 @@ jobs:
           tag_name: ${{ needs.version.outputs.tag }}
           files: release/**/*   # Attach all installers
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.electron-pomodoro-minutor }}
