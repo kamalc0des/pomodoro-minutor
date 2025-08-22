@@ -5,6 +5,9 @@ on:
     branches:
       - main   # Every push to main triggers version + release
 
+permissions:
+  contents: write   # <--- allows pushing tags
+  
 jobs:
   version:
     runs-on: ubuntu-latest
