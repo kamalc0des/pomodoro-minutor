@@ -1,0 +1,48 @@
+{
+  "name": "pomodoro-minutor",
+  "version": "1.0.0",
+  "description": "A simple Pomodoro timer built with Electron and Tailwind CSS",
+  "main": "dist/electron/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json",
+    "dev": "concurrently \"tsc -w -p tsconfig.main.json\" \"tsc -w -p tsconfig.renderer.json\" \"wait-on dist/electron/main.js && electron dist/electron/main.js\"",
+    "start": "npm run build && electron dist/electron/main.js",
+    "dist": "npm run build && electron-builder"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.11",
+    "concurrently": "^8.2.2",
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.9.2",
+    "wait-on": "^7.2.0"
+  },
+  "dependencies": {},
+  "build": {
+    "appId": "com.pomodoro.minutor",
+    "productName": "Pomodoro Minutor",
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "public/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
