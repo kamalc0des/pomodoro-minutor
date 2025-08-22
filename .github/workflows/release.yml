@@ -1,12 +1,31 @@
-name: Build and Release
+name: Auto Build and Release
 
 on:
   push:
-    tags:
-      - "v*"   # Example: v1.0.0
+    branches:
+      - main   # Every push to main triggers version + release
 
 jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.bump.outputs.new_tag }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@1.69.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch   # patch | minor | major (default behavior)
+
   build:
+    needs: version
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -34,7 +53,7 @@ jobs:
           path: release/*
 
   release:
-    needs: build
+    needs: [version, build]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
@@ -45,6 +64,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release/**/*
+          tag_name: ${{ needs.version.outputs.tag }}
+          files: release/**/*   # Attach all installers
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
