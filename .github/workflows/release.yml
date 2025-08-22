@@ -65,6 +65,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.version.outputs.tag }}
-          files: release/**/*   # Attach all installers
+          files: release/**/*   # Attach all installers.
         env:
           GH_TOKEN: ${{ secrets.electron-pomodoro-minutor }}
