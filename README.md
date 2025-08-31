@@ -43,7 +43,7 @@ The executables will be available in the **`release/`** folder.
 ## 📂 Project Structure
 
 ```
-pomodoro-minutor/
+pomodoro-timer/
 ├── dist/                # Compiled files
 ├── public/              # HTML, CSS, icons
 ├── src/
@@ -72,4 +72,4 @@ You are free to **use, copy, modify, and distribute** this project.
 
 ---
 
-👤 Author: **Kamal Aarab**
+👤 Author: **Kamalcodes**
